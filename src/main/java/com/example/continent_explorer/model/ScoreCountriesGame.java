@@ -18,7 +18,10 @@ public class ScoreCountriesGame {
     private int attemptNumber;
     private BigDecimal pointsAwarded;
     private BigDecimal totalScore;
-    private boolean isFinalAttempt;
+
+    @Column(name = "is_final_attempt", nullable = false)
+    private Boolean isFinalAttempt;
+
     private Timestamp attemptTime;
 
 
@@ -79,20 +82,12 @@ public class ScoreCountriesGame {
         this.totalScore = totalScore;
     }
 
-    public boolean getIsFinalAttempt() {
+    public Boolean getIsFinalAttempt() {
         return isFinalAttempt;
     }
 
-    public void setIsFinalAttempt(boolean isFinalAttempt) {
+    public void setIsFinalAttempt(Boolean isFinalAttempt) {
         this.isFinalAttempt = isFinalAttempt;
-    }
-
-    public boolean isFinalAttempt() {
-        return isFinalAttempt;
-    }
-
-    public void setFinalAttempt(boolean finalAttempt) {
-        isFinalAttempt = finalAttempt;
     }
 
     public Timestamp getAttemptTime() {

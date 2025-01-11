@@ -25,6 +25,7 @@ public class ScoreController {
 
     @PostMapping("/saveEuropa")
     public ResponseEntity<String> saveScoreEuropa(@RequestBody ScoreRequest scoreRequest) {
+        System.out.println("Received isFinalAttempt: " + scoreRequest.getIsFinalAttempt());
         System.out.println("Received score: " + scoreRequest);
         scoreService.saveScoreEuropa(scoreRequest);
         return ResponseEntity.ok("Score saved successfully");

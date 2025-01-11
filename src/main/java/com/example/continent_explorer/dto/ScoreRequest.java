@@ -8,7 +8,8 @@ public class ScoreRequest {
     private int attemptNumber;
     private double pointsAwarded;
     private double totalScore;
-    private boolean isFinalAttempt;
+    private Boolean isFinalAttempt;
+    private Long attemptTime;
 
     public Long getUserId() {
         return userId;
@@ -58,11 +59,11 @@ public class ScoreRequest {
         this.totalScore = totalScore;
     }
 
-    public boolean isFinalAttempt() {
+    public Boolean getIsFinalAttempt() {
         return isFinalAttempt;
     }
 
-    public void setFinalAttempt(boolean finalAttempt) {
+    public void setFinalAttempt(Boolean finalAttempt) {
         isFinalAttempt = finalAttempt;
     }
 
@@ -72,5 +73,13 @@ public class ScoreRequest {
 
     public void setCountryId(Long countryId) {
         this.countryId = countryId;
+    }
+
+    public Long getAttemptTime() {
+        return attemptTime;
+    }
+
+    public void setAttemptTime(Long attemptTime) {
+        this.attemptTime = attemptTime;
     }
 }

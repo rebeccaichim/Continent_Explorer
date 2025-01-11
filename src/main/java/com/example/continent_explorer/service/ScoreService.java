@@ -37,7 +37,8 @@ public class ScoreService {
         score.setPointsAwarded(BigDecimal.valueOf(scoreRequest.getPointsAwarded()));
         score.setTotalScore(BigDecimal.valueOf(scoreRequest.getTotalScore()));
 
-        score.setIsFinalAttempt(scoreRequest.isFinalAttempt());
+        score.setIsFinalAttempt(scoreRequest.getIsFinalAttempt());
+        score.setAttemptTime(Timestamp.from(Instant.now()));
 
         scoreRepository.save(score);
     }
@@ -70,8 +71,9 @@ public class ScoreService {
         score.setPointsAwarded(BigDecimal.valueOf(scoreRequest.getPointsAwarded()));
         score.setTotalScore(BigDecimal.valueOf(scoreRequest.getTotalScore()));
 
-        score.setIsFinalAttempt(scoreRequest.isFinalAttempt());
+        score.setIsFinalAttempt(scoreRequest.getIsFinalAttempt());
 
+        score.setAttemptTime(Timestamp.from(Instant.now()));
         scoreCountriesGameRepository.save(score);
     }
 
