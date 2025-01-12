@@ -1,5 +1,6 @@
 package com.example.continent_explorer.repository;
 
+import com.example.continent_explorer.model.ScoreCountriesGame;
 import com.example.continent_explorer.model.VisitedCountry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,5 @@ public interface VisitedCountryRepository extends JpaRepository<VisitedCountry, 
 
     @Query("SELECT v.visitedCountryName FROM VisitedCountry v WHERE v.userId = :userId")
     List<String> findVisitedCountryNamesByUserId(@Param("userId") Long userId);
+
 }

@@ -37,18 +37,18 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
-            user.setFullName(userDetails.getFullName());
-            user.setGender(userDetails.getGender());
-            user.setAge(userDetails.getAge());
-            user.setEmail(userDetails.getEmail());
-            return userRepository.save(user);
-        }
-        return null;
-    }
+//    @PutMapping("/{id}")
+//    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+//        User user = userRepository.findById(id).orElse(null);
+//        if (user != null) {
+//            user.setFullName(userDetails.getFullName());
+//            user.setGender(userDetails.getGender());
+//            user.setAge(userDetails.getAge());
+//            user.setEmail(userDetails.getEmail());
+//            return userRepository.save(user);
+//        }
+//        return null;
+//    }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
@@ -88,6 +88,45 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while creating the account.");
         }
     }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<User> getUserProfile(@PathVariable Long userId) {
+        User user = userService.findUserById(userId);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long userId, @RequestBody User updatedUser) {
+        Optional<User> existingUserOpt = userRepository.findById(userId);
+
+        if (existingUserOpt.isPresent()) {
+            User existingUser = existingUserOpt.get();
+
+            if (updatedUser.getFullName() != null) {
+                existingUser.setFullName(updatedUser.getFullName());
+            }
+            if (updatedUser.getEmail() != null) {
+                existingUser.setEmail(updatedUser.getEmail());
+            }
+            if (updatedUser.getGender() != null) {
+                existingUser.setGender(updatedUser.getGender());
+            }
+            if (updatedUser.getAge() != 0) {
+                existingUser.setAge(updatedUser.getAge());
+            }
+
+            userRepository.save(existingUser);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 
 }

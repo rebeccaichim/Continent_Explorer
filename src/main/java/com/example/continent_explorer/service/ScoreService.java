@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -78,6 +79,13 @@ public class ScoreService {
     }
 
 
+    public List<ScoreCountiesGame> getScoresForRomania(Long userId) {
+        return scoreCountiesGameRepository.findByUserIdAndIsFinalAttemptTrue(userId);
+    }
+
+    public List<ScoreCountriesGame> getScoresForEuropa(Long userId) {
+        return scoreCountriesGameRepository.findByUserIdAndIsFinalAttemptTrue(userId);
+    }
 }
 
 

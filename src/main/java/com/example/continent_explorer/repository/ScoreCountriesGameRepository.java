@@ -10,4 +10,6 @@ import java.util.List;
 public interface ScoreCountriesGameRepository extends JpaRepository<ScoreCountriesGame, Long> {
     List<ScoreCountriesGame> findByUserIdAndCountryId(Long userId, Long countryId);
     List<ScoreCountriesGame> findByUserId(Long userId);
+    List<ScoreCountriesGame> findByUserIdAndIsFinalAttemptTrue(Long userId);
+
 }
