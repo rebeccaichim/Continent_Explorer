@@ -1,15 +1,19 @@
 package com.example.continent_explorer.controller;
 
+import com.example.continent_explorer.dto.PasswordResetRequest;
+import com.example.continent_explorer.dto.PasswordResetToken;
+import com.example.continent_explorer.dto.ResetPasswordRequest;
 import com.example.continent_explorer.model.User;
+import com.example.continent_explorer.repository.PasswordResetTokenRepository;
 import com.example.continent_explorer.repository.UserRepository;
 import com.example.continent_explorer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -21,6 +25,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
+
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -60,6 +70,7 @@ public class UserController {
         Optional<User> optionalUser = userRepository.findByEmail(loginRequest.getEmail());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+
             if (loginRequest.getPassword().equals(user.getPassword())) {
                 return ResponseEntity.ok(user);
             } else {
@@ -126,6 +137,44 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+    @PostMapping("/check-email")
+    public ResponseEntity<Map<String, String>> checkEmail(@RequestBody PasswordResetRequest request) {
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        Map<String, String> response = new HashMap<>();
+        if (userOptional.isPresent()) {
+            response.put("message", "Email exists");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Email not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+    }
+
+
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@RequestBody ResetPasswordRequest request) {
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        User user = userOptional.get();
+        // Salvează parola în text simplu
+        user.setPassword(request.getNewPassword());
+        userRepository.save(user);
+
+
+        return ResponseEntity.ok().build();
+    }
+
+
+
+
+
+
 
 
 
