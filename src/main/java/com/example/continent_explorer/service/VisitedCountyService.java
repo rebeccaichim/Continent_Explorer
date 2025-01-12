@@ -31,18 +31,15 @@ public class VisitedCountyService {
         }
 
         try {
-            // Conversie cu format explicit pentru a asigura consistența
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate visitedDate = LocalDate.parse(request.getCountyVisitedDate(), formatter);
 
-            // Crearea obiectului VisitedCounty
             VisitedCounty visitedCounty = new VisitedCounty();
             visitedCounty.setVisitedCountyName(request.getVisitedCountyName());
             visitedCounty.setCountryId(request.getCountryId());
             visitedCounty.setCountyVisitedDate(visitedDate);
-            visitedCounty.setUserId(request.getUserId()); // Adaugă această linie
+            visitedCounty.setUserId(request.getUserId());
 
-            // Salvarea în baza de date
             visitedCountyRepository.save(visitedCounty);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Error parsing visited date: " + e.getMessage(), e);

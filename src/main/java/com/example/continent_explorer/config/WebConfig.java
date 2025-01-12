@@ -9,7 +9,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        System.out.println("=== WebConfig - Adding CORS Mappings ===");
         registry.addMapping("/**")
                 .allowedOriginPatterns("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
@@ -17,6 +16,5 @@ public class WebConfig implements WebMvcConfigurer {
                 .exposedHeaders("Authorization")
                 .maxAge(3600);
 
-        System.out.println("CORS Mapping added for all origins, methods, and headers.");
     }
 }

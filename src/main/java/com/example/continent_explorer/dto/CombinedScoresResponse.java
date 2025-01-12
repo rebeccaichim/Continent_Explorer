@@ -9,7 +9,6 @@ public class CombinedScoresResponse {
     private List<ScoreCountiesGame> romaniaScores;
     private List<ScoreCountriesGame> europaScores;
 
-    // Constructori, Getteri și Setteri
     public CombinedScoresResponse(List<ScoreCountiesGame> romaniaScores, List<ScoreCountriesGame> europaScores) {
         this.romaniaScores = romaniaScores;
         this.europaScores = europaScores;

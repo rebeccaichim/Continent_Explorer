@@ -92,15 +92,6 @@ public class GameService {
                 .sum();
     }
 
-
-
-
-
-
-
-
-
-
     public Country getRandomCountryEuropa() {
         List<Country> countries = countryRepository.findAll();
         int randomIndex = new Random().nextInt(countries.size());

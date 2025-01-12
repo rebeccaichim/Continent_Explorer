@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,11 +34,6 @@ public class VisitedCountyController {
         }
     }
 
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<List<String>> getVisitedCounties(@PathVariable Long userId) {
-//        List<String> visitedCounties = visitedCountyService.getVisitedCountiesByUser(userId);
-//        return ResponseEntity.ok(visitedCounties != null ? visitedCounties : new ArrayList<>());
-//    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<String>> getFormattedVisitedCounties(@PathVariable Long userId) {

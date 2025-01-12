@@ -1,16 +1,13 @@
 package com.example.continent_explorer.controller;
 
 import com.example.continent_explorer.dto.PasswordResetRequest;
-import com.example.continent_explorer.dto.PasswordResetToken;
 import com.example.continent_explorer.dto.ResetPasswordRequest;
 import com.example.continent_explorer.model.User;
-import com.example.continent_explorer.repository.PasswordResetTokenRepository;
 import com.example.continent_explorer.repository.UserRepository;
 import com.example.continent_explorer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -25,12 +22,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PasswordResetTokenRepository passwordResetTokenRepository;
-
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -47,18 +38,6 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
-//    @PutMapping("/{id}")
-//    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-//        User user = userRepository.findById(id).orElse(null);
-//        if (user != null) {
-//            user.setFullName(userDetails.getFullName());
-//            user.setGender(userDetails.getGender());
-//            user.setAge(userDetails.getAge());
-//            user.setEmail(userDetails.getEmail());
-//            return userRepository.save(user);
-//        }
-//        return null;
-//    }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
@@ -162,7 +141,6 @@ public class UserController {
         }
 
         User user = userOptional.get();
-        // Salvează parola în text simplu
         user.setPassword(request.getNewPassword());
         userRepository.save(user);
 

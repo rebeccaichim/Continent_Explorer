@@ -6,11 +6,10 @@ public class VisitedCountyRequest {
     private String visitedCountyName;
     private Long countryId;
     private Long userId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Specificăm formatul așteptat
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
     private String countyVisitedDate;
 
-    // Getteri și setteri
     public String getVisitedCountyName() {
         return visitedCountyName;
     }

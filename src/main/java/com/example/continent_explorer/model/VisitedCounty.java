@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class VisitedCounty {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment pentru PostgreSQL
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "visited_county_id")
     private Long visitedCountyId;
 

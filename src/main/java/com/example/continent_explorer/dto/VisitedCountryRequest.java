@@ -7,11 +7,10 @@ public class VisitedCountryRequest {
     private Long continentId;
     private Long userId;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd") // Formatul datei
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 
     private String countryVisitedDate;
 
-    // Getteri și setteri
     public String getVisitedCountryName() {
         return visitedCountryName;
     }

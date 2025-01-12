@@ -2,7 +2,6 @@ package com.example.continent_explorer.service;
 
 import com.example.continent_explorer.dto.VisitedCountryRequest;
 import com.example.continent_explorer.model.VisitedCountry;
-import com.example.continent_explorer.model.VisitedCounty;
 import com.example.continent_explorer.repository.VisitedCountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,18 +31,15 @@ public class VisitedCountryService {
         }
 
         try {
-            // Conversie cu format explicit pentru a asigura consistența
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate visitedDate = LocalDate.parse(request.getCountryVisitedDate(), formatter);
 
-            // Crearea obiectului VisitedCountry
             VisitedCountry visitedCountry = new VisitedCountry();
             visitedCountry.setVisitedCountryName(request.getVisitedCountryName());
             visitedCountry.setContinentId(request.getContinentId());
             visitedCountry.setCountryVisitedDate(visitedDate);
             visitedCountry.setUserId(request.getUserId());
 
-            // Salvarea în baza de date
             visitedCountryRepository.save(visitedCountry);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Error parsing visited date: " + e.getMessage(), e);

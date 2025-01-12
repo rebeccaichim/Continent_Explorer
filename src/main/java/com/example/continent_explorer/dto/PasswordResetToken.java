@@ -19,17 +19,16 @@ public class PasswordResetToken {
 
     private LocalDateTime expiryDate;
 
-    // Constructori
+
     public PasswordResetToken() {
     }
 
     public PasswordResetToken(String token, User user) {
         this.token = token;
         this.user = user;
-        this.expiryDate = LocalDateTime.now().plusHours(24); // Token valabil 24 de ore
+        this.expiryDate = LocalDateTime.now().plusHours(24);
     }
 
-    // Getteri și setteri
     public Long getId() {
         return id;
     }
