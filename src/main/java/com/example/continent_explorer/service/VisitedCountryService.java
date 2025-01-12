@@ -2,6 +2,7 @@ package com.example.continent_explorer.service;
 
 import com.example.continent_explorer.dto.VisitedCountryRequest;
 import com.example.continent_explorer.model.VisitedCountry;
+import com.example.continent_explorer.model.VisitedCounty;
 import com.example.continent_explorer.repository.VisitedCountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,8 +52,8 @@ public class VisitedCountryService {
         }
     }
 
-    public List<String> getVisitedCountriesByUser(Long userId) {
-        return visitedCountryRepository.findVisitedCountryNamesByUserId(userId);
+    public List<VisitedCountry> getVisitedCountriesByUser(Long userId) {
+        return visitedCountryRepository.findByUserId(userId);
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/visited-countries")
@@ -35,8 +36,11 @@ public class VisitedCountryController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<String>> getVisitedCountries(@PathVariable Long userId) {
-        List<String> visitedCountries = visitedCountryService.getVisitedCountriesByUser(userId);
-        return ResponseEntity.ok(visitedCountries != null ? visitedCountries : new ArrayList<>());
+    public ResponseEntity<List<String>> getFormattedVisitedCountries(@PathVariable Long userId) {
+        List<String> formattedCountries = visitedCountryService.getVisitedCountriesByUser(userId)
+                .stream()
+                .map(vc -> vc.getVisitedCountryName() + " (" + vc.getCountryVisitedDate() + ")")
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(formattedCountries);
     }
 }

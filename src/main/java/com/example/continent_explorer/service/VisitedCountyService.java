@@ -51,8 +51,9 @@ public class VisitedCountyService {
         }
     }
 
-    public List<String> getVisitedCountiesByUser(Long userId) {
-        return visitedCountyRepository.findVisitedCountyNamesByUserId(userId);
+    public List<VisitedCounty> getVisitedCountiesByUser(Long userId) {
+        return visitedCountyRepository.findByUserId(userId);
     }
+
 
 }

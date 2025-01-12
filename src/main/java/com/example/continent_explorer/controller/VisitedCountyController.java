@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/visited-counties")
@@ -34,12 +35,20 @@ public class VisitedCountyController {
         }
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<String>> getVisitedCounties(@PathVariable Long userId) {
-        List<String> visitedCounties = visitedCountyService.getVisitedCountiesByUser(userId);
-        return ResponseEntity.ok(visitedCounties != null ? visitedCounties : new ArrayList<>());
-    }
+//    @GetMapping("/{userId}")
+//    public ResponseEntity<List<String>> getVisitedCounties(@PathVariable Long userId) {
+//        List<String> visitedCounties = visitedCountyService.getVisitedCountiesByUser(userId);
+//        return ResponseEntity.ok(visitedCounties != null ? visitedCounties : new ArrayList<>());
+//    }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<String>> getFormattedVisitedCounties(@PathVariable Long userId) {
+        List<String> formattedCounties = visitedCountyService.getVisitedCountiesByUser(userId)
+                .stream()
+                .map(vc -> vc.getVisitedCountyName() + " (" + vc.getCountyVisitedDate() + ")")
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(formattedCounties);
+    }
 
 
 }

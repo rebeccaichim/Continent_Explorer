@@ -16,4 +16,5 @@ public interface VisitedCountyRepository extends JpaRepository<VisitedCounty, Lo
     @Query("SELECT v.visitedCountyName FROM VisitedCounty v WHERE v.userId = :userId")
     List<String> findVisitedCountyNamesByUserId(@Param("userId") Long userId);
 
+
 }
